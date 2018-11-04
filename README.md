@@ -30,7 +30,7 @@ $ ruby nazuna.rb fire flame burn
 ## Install
 
 * clone
-* set Environmental valiable 'GITHUB_TOKEN' with full repository access.
+* set Environmental valiable 'GITHUB_TOKEN' by your GitHub access token with full repository access.
 
 ## Licence
 
