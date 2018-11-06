@@ -4,10 +4,15 @@ require_relative 'nazuna'
 
 # interpret input
 class CLI
-  def main
-    return if ARGV.empty?
+  def initialize(queries, api_delegator)
+    @queries = queries
+    @api_delegator = api_delegator
+  end
 
-    search_result = Nazuna.new(access_token).fetch_many(ARGV)
+  def main
+    return if @queries.empty?
+
+    search_result = Nazuna.new(@api_delegator).fetch_many(@queries)
     pretty_print_search_result(search_result)
   end
 
@@ -44,13 +49,7 @@ class CLI
         "#{search_result.query.rjust(keyword_width)} | " \
         "#{search_result.count.to_s.rjust(result_width)} |")
   end
-
-  def access_token
-    token = ENV['GITHUB_TOKEN']
-    raise "Failed to get access token. Put ENV['GITHUB_TOKEN'] to your GitHub access token." unless token
-
-    token
-  end
 end
 
-CLI.new.main
+api = GitHubAPIDelegator.new(ENV['GITHUB_TOKEN'], Logger.new('nazuna.log'))
+CLI.new(ARGV, api).main
