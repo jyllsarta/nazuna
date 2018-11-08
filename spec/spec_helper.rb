@@ -93,4 +93,12 @@ RSpec.configure do |config|
   # as the one that triggered the failure.
   Kernel.srand config.seed
 =end
+
+#GitHub APIを叩いた結果のスタブ
+class StubAPI
+  def fetch(query_word)
+    {total_count: 100}
+  end
+end
+
 end
